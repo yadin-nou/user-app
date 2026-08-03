@@ -11,9 +11,12 @@ const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "public")));
 // use this urlencode when we use req.body and method post to recieved data from front end
 app.use(express.urlencoded({ extended: true }));
-
+const fileName = "userData.csv";
 //home page controller
 app.get("/", (req, res) => {
+  fs.readFile(fileName, "utf8", (error, data) => {
+    error ? console.log("error") : console.log(data);
+  });
   res.sendFile(__dirname + "/src/html/index.html");
 });
 
@@ -24,14 +27,18 @@ app.get("/register", (req, res) => {
 });
 app.post("/register", (req, res) => {
   const { txtName, Email, pwd } = req.body;
-  const str = `${txtName},${Email},${pwd}`;
+  const str = `${txtName},${Email},${pwd}\n`;
   //create file and write data
-  const fileName = "userData.csv";
-  fs.writeFile(fileName, str, (error) => {
+
+  //   fs.writeFile(fileName, str, (error) => {
+  //     error ? console.log(error) : console.log("data has been written in file");
+  //   });
+  fs.appendFile(fileName, str, (error) => {
     error ? console.log(error) : console.log("data has been written in file");
   });
   console.log(str);
-  res.sendFile(__dirname + "/src/html/registration.html");
+  //res.sendFile(__dirname + "/src/html/registration.html");
+  res.send("<h1>Data have been created.</h1>");
 });
 //user login Controller
 app.get("/login", (req, res) => {
