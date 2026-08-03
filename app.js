@@ -1,5 +1,7 @@
 import express from "express";
 import path from "path";
+// import file system
+import fs from "fs";
 const app = express();
 const PORT = 8000;
 const __dirname = path.resolve();
@@ -21,7 +23,14 @@ app.get("/register", (req, res) => {
   res.sendFile(__dirname + "/src/html/registration.html");
 });
 app.post("/register", (req, res) => {
-  console.log(req.body, "server post registration");
+  const { txtName, Email, pwd } = req.body;
+  const str = `${txtName},${Email},${pwd}`;
+  //create file and write data
+  const fileName = "userData.csv";
+  fs.writeFile(fileName, str, (error) => {
+    error ? console.log(error) : console.log("data has been written in file");
+  });
+  console.log(str);
   res.sendFile(__dirname + "/src/html/registration.html");
 });
 //user login Controller
