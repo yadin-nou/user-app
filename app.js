@@ -7,7 +7,8 @@ const __dirname = path.resolve();
 //we use path.join to make sure fit for every system which use different forward /slash
 //app.use(express.static(__dirname + "/public"));
 app.use(express.static(path.join(__dirname, "public")));
-//console.log(__dirName);
+// use this urlencode when we use req.body and method post to recieved data from front end
+app.use(express.urlencoded({ extended: true }));
 
 //home page controller
 app.get("/", (req, res) => {
@@ -15,10 +16,14 @@ app.get("/", (req, res) => {
 });
 
 //user registration controler
-app.get("/registration", (req, res) => {
+app.get("/register", (req, res) => {
+  console.log(req.query, "server get registration");
   res.sendFile(__dirname + "/src/html/registration.html");
 });
-
+app.post("/register", (req, res) => {
+  console.log(req.body, "server post registration");
+  res.sendFile(__dirname + "/src/html/registration.html");
+});
 //user login Controller
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/src/html/login.html");

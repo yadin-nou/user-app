@@ -19,13 +19,17 @@
         <div>
           <a href="/">Home</a>
           <a href="/login">Login</a>
-          <a href="/registration">Register</a>
+          <a href="/register">Register</a>
         </div>
       </nav>
      <div>
        <h2>Create an account</h2>
          <div class="d-flex justify-content-center">
-        <form class="shadow-lg p-2">
+        <form class="shadow-lg p-2" 
+        method="post" 
+        action="/register" 
+      enctype="application/x-www-form-urlencoded"
+        >
          <div class="mb-3">
             <label for="userName" class="form-label"
               >Name</label
@@ -34,6 +38,7 @@
               type="text"
               class="form-control"
               id="userName"
+              name="txtName"
               aria-describedby="name"
             />
           <div class="mb-3">
@@ -44,6 +49,7 @@
               type="email"
               class="form-control"
               id="exampleInputEmail1"
+              name="Email"
               aria-describedby="emailHelp"
             />
             <div id="emailHelp" class="form-text">
@@ -58,6 +64,7 @@
               type="password"
               class="form-control"
               id="exampleInputPassword1"
+              name="pwd"
             />
           </div>
           <div class="mb-3 form-check">
@@ -65,6 +72,7 @@
               type="checkbox"
               class="form-check-input"
               id="exampleCheck1"
+              name="chCheck"
             />
             <label class="form-check-label" for="exampleCheck1"
               >Check me out</label
